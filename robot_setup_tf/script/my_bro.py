@@ -3,9 +3,9 @@
 import rospy
 from std_msgs.msg import Int32MultiArray 
 
+ss=[2]
 
-
-servos = [ 1,2,3,4,5,6,7,8,9]
+servos = [ 12,3,3,4,5,6,7,8,9]
  
 def publish_message():
     pub = rospy.Publisher('my_bro', Int32MultiArray, queue_size=10)
