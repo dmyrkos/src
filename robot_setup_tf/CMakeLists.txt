@@ -51,7 +51,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
  add_message_files(
    FILES
-   sonar.msg
+   Sonar.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -166,6 +166,7 @@ include_directories(
    script/my_bro.py
    script/imu.py
    script/imu_listener.py
+   script/ros_sonar.py
 
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )

@@ -10,15 +10,11 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-# PINOUT
-# Sonar 0 
-TRIG = 23
-ECHO = 24
 
 # foramt sonar  id  : TRiger , Echo
 sonars_dic = {
-		's0' : (17,27),'s1' : (5,6),
-		's2' : (23,24),'s3' : (20,21) 
+		's0' : (5,12),'s1' : (6,16),
+		's2' : (13,20),'s3' : (19,21) 
 		}
 				
 
@@ -59,21 +55,19 @@ def run_sonars():
 	sonar_msg = Sonar()
 	sonar_msg.header.frame_id = "sonar_mount"
 
-	rate = rospy.Rate(5) # 1hz
+	rate = rospy.Rate(5) # 5hz
 	while not rospy.is_shutdown():
 
 		rospy.loginfo("New Data")
 
 		sonar_msg.header.stamp = rospy.Time.now()
-		sonar_msg.distance = get_distance()
-
+		for x,i in enumerate(sonars_dic,0):
+			sonar_msg.distance[x]=get_distance(sonars_dic[i][0],sonars_dic[i][1])
 		sonar_pub.publish(sonar_msg)
 		rate.sleep()
 
 if __name__ == '__main__':
 	try:
-		for x in sonars_dic :
-
 		run_sonars()
 	except rospy.ROSInterruptException:
 		pass
