@@ -52,6 +52,7 @@ find_package(catkin REQUIRED COMPONENTS
  add_message_files(
    FILES
    Sonar.msg
+   Servo_tf.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -167,6 +168,7 @@ include_directories(
    script/imu.py
    script/imu_listener.py
    script/ros_sonar.py
+   script/just.py
 
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )

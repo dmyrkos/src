@@ -20,7 +20,7 @@ if __name__ == '__main__':
     rate = rospy.Rate(10)
     while not rospy.is_shutdown():
         try:
-            trans = tfBuffer.lookup_transform('RFK','RFA', rospy.Time())
+            trans = tfBuffer.lookup_transform('A_RF','RFH', rospy.Time.now())
 
             trans.header.stamp = rospy.Time.now()
             #trans.header.frame_id = "base_link"
