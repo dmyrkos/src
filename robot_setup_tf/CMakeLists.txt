@@ -169,6 +169,7 @@ include_directories(
    script/imu_listener.py
    script/ros_sonar.py
    script/just.py
+   script/bno055_node.py
 
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
