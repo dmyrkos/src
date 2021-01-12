@@ -170,6 +170,7 @@ include_directories(
    script/ros_sonar.py
    script/just.py
    script/bno055_node.py
+   script/main_code.py
 
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )

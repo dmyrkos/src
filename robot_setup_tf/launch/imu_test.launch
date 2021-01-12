@@ -4,18 +4,12 @@
 
 
 
-<node pkg="robot_setup_tf" type="imu.py" name="imu_pub"/>
+<node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub"/>
+
+<node pkg="robot_setup_tf" type ="imu_listener.py" name="imu_listener" /> 
 
 
-<node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_madgwick" >
 
-<!-- 	<param name="zeta" type="double" value="0.4626" />
-	<param name="mag_bias_x" type="double" value="-12.3" />
-	<param name="mag_bias_y" type="double" value="-30.2" />
-	<param name="mag_bias_z" type="double" value="-52.6" />
- -->
-
-</node>
 
 
 

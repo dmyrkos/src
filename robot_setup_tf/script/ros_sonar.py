@@ -13,13 +13,13 @@ GPIO.setmode(GPIO.BCM)
 
 # foramt sonar  id  : TRiger , Echo
 sonars_dic = {
-		's0' : (5,12),'s1' : (6,16),
-		's2' : (13,20),'s3' : (19,21) 
+		's0' : (17,27),'s1' : (5,6),
+		 's2' : (23,24),'s3' : (21,20) 
 		}
 				
 
 
-def get_distance(TRIG,ECHO):
+def get_distance(ECHO,TRIG):
 
 	GPIO.setup(TRIG,GPIO.OUT)
 	GPIO.setup(ECHO,GPIO.IN)
@@ -68,6 +68,8 @@ def run_sonars():
 
 if __name__ == '__main__':
 	try:
+		for x,i in enumerate(sonars_dic,0):
+			print(sonars_dic[i][0])
 		run_sonars()
 	except rospy.ROSInterruptException:
 		pass

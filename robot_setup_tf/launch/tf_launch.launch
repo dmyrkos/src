@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<launch>
+
+
+
+<!--Static link for Robot  -->
+<!-- Right front Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RF1" 
+args="0.1 -0.045 0 -0.78 0 0  base_link A_RF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RF2" 
+args="0.04 0 -0.02 0 0 0  B_RF C_RF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RF3" 
+args="0.03 0 0 0 0 0 D_RF E_RF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RF4" 
+args="0.14 0 0 0 0 0  F_RF J_RF" />
+
+
+<!-- Left front Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LF1" 
+args="0.1 0.045 0 0.78 0 0  base_link A_LF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LF2" 
+args="0.04 0 -0.02 0 0 0  B_LF C_LF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LF3" 
+args="0.03 0 0 0 0 0 D_LF E_LF" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LF4" 
+args="0.14 0 0 0 0 0  F_LF J_LF" />
+
+
+<!-- Right Mid Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RM1" 
+args="0 -0.045 0 -1.57 0 0  base_link A_RM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RM2" 
+args="0.04 0 -0.02 0 0 0  B_RM C_RM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RM3" 
+args="0.03 0 0 0 0 0 D_RM E_RM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RM4" 
+args="0.14 0 0 0 0 0  F_RM J_RM" />
+
+<!-- Left Mid Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LM1" 
+args="0 0.045 0 1.57 0 0  base_link A_LM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LM2" 
+args="0.04 0 -0.02 0 0 0  B_LM C_LM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LM3" 
+args="0.03 0 0 0 0 0 D_LM E_LM" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LM4" 
+args="0.14 0 0 0 0 0  F_LM J_LM" />
+
+<!-- Right back Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RB1" 
+args="-0.1 -0.045 0 -2.35 0 0  base_link A_RB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RB2" 
+args="0.04 0 -0.02 0 0 0  B_RB C_RB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RB3" 
+args="0.03 0 0 0 0 0 D_RB E_RB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RB4" 
+args="0.14 0 0 0 0 0  F_RB J_RB" />
+
+<!-- Left back Leg -->
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LB1" 
+args="-0.1 0.045 0 2.35 0 0  base_link A_LB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LB2" 
+args="0.04 0 -0.02 0 0 0  B_LB C_LB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LB3" 
+args="0.03 0 0 0 0 0 D_LB E_LB" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_LB4" 
+args="0.14 0 0 0 0 0  F_LB J_LB" />
+
+<!-- Dynamic links  -->
+
+
+<!-- <node pkg="robot_setup_tf" type="tf_broadcaster.py" name="tf_broadcaster" />
+ -->
+
+</launch>
