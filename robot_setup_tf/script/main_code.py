@@ -10,10 +10,10 @@ from robot_setup_tf.msg import Sonar
 
 
 def main():
-	hex1.rotate_clockwise(3,0.2,True)
+	#hex1.rotate_clockwise(3,0.2,True)
 	rospy.Subscriber("sonar_data", Sonar, check_sonar)
 	rospy.spin()
-	hex1.rotate_clockwise(3,0.2,False)
+	#hex1.rotate_clockwise(3,0.2,False)
 
 # check enviroment 
 
