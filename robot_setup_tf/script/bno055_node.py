@@ -109,8 +109,8 @@ if __name__ == '__main__':
 	rospy.init_node('bno055_node')
 
 	imu_pub   = rospy.Publisher("bno055/imu", Imu, queue_size=10)
-	#heading_pub = rospy.Publisher("sense_gimbal/bno055/compass_hdg", Float64, queue_size=10)
-	#accel_pub 	= rospy.Publisher("sense_gimbal/bno055/accel_stamped", AccelStamped, queue_size=10)
+	heading_pub = rospy.Publisher("bno055/compass_hdg", Float64, queue_size=10)
+	accel_pub 	= rospy.Publisher("bno055/accel_stamped", AccelStamped, queue_size=10)
 
 	#load_calib = rospy.Service('sense_gimbal/bno055/load_calibration_json', LoadCalibrationJson, handleLoadCalibrationJson)
 	#set_rate = rospy.Service('sense_gimbal/bno055/set_stream_rate', SetStreamRate, handleSetStreamRate)
@@ -250,10 +250,10 @@ if __name__ == '__main__':
 		#print('Heading={0:0.2F} '.format(heading))
 
 		# Publish
-		#heading_pub.publish(hdg_msg)
-		#quat_pub.publish(bno_msg)
+		heading_pub.publish(hdg_msg)
+		# quat_pub.publish(bno_msg)
 		imu_pub.publish(imu_msg)
-		#accel_pub.publish(accel_msg)
+		accel_pub.publish(accel_msg)
 
 		rate.sleep()
 

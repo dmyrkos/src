@@ -55,7 +55,7 @@ def run_sonars():
 	sonar_msg = Sonar()
 	sonar_msg.header.frame_id = "sonar_mount"
 
-	rate = rospy.Rate(5) # 5hz
+	rate = rospy.Rate(10) # 5hz
 	while not rospy.is_shutdown():
 
 		rospy.loginfo("New Data")

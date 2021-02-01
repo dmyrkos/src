@@ -5,7 +5,8 @@
 
 
 <node pkg="robot_setup_tf" type="ros_sonar.py" name="sonar_data"/>
-<!-- <node pkg="robot_setup_tf" type="bno055_node.py" name="Imu_data"/> -->
+
+<node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub" />
 
 <node pkg="robot_setup_tf" type ="main_code.py" name="core_HEX" output= "screen"/> 
 
