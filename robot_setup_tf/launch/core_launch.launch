@@ -1,10 +1,24 @@
 <?xml version="1.0"?>
 <launch>
 
-
-
+<include file="$(find robot_setup_tf)/launch/tf_launch.launch"/>
 
 <node pkg="robot_setup_tf" type="ros_sonar.py" name="sonar_data"/>
+
+<include file = "$(find rplidar_ros)/launch/rplidar.launch"/>
+
+<arg name="geotiff_map_file_path" default="$(find hector_geotiff)/maps"/>
+
+<param name="/use_sim_time" value="false"/>
+
+<include file="$(find hector_mapping)/launch/mapping_default.launch"/>
+
+<include file="$(find hector_geotiff_launch)/launch/geotiff_mapper.launch">
+	<arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
+	<arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
+</include>
+
+
 
 <node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub" />
 

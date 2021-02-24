@@ -10,16 +10,136 @@ from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3, Transform
 import std_msgs 
 from std_msgs.msg import Float64
 from time import sleep
+from sensor_msgs.msg import LaserScan
+import tf_conversions
+import tf2_ros
 
+
+
+
+#FORWARD = F 
+#BACKWARD = B
+# LEFT = L
+# RIGHT = R
+#i.e.  ['F','F','L',F]
+move_set =['F']
+forward = False
+backwards = True 
+left =  False
+right = True
 
 class Enviroment:
 	def __init__(self):
-		self.sonar_RF = Sonar_d('right_front',None,2,0)
-		self.sonar_LF = Sonar_d('left_front',None,3,0)
-		self.sonar_RB = Sonar_d('right_back',None,1,0)
-		self.sonar_LB = Sonar_d('left_back',None,0,0)
+		self.sonar_RF = Sonar_d('right_front',None,1,0)
+		self.sonar_LF = Sonar_d('left_front',None,0,0)
+		self.sonar_RB = Sonar_d('right_back',None,2,0)
+		self.sonar_LB = Sonar_d('left_back',None,3,0)
 		self.imu= Imu_d()
+		# self.Laser = Laser_d()
 		self.sonars = [self.sonar_RF,self.sonar_LF,self.sonar_RB,self.sonar_LB]
+		self.set = None
+		self.tmp_dir = None
+
+	def check_enviroment(self,direction):
+		y=36
+		if direction =='F':
+			self.tmp_dir = 'F'
+			if self.sonar_RF.distance <=y and self.sonar_LF.distance <=y  : # 1 AND 1
+				self.set = 'R'
+				move_set.append(self.set)
+			elif self.sonar_RF.distance <= y and self.sonar_LF.distance > y : #1 AND 0
+				self.set = 'L'
+				move_set.append(self.set)
+			elif self.sonar_RF.distance > y and self.sonar_LF.distance<=y :  # 0 AND 1
+				self.set = 'R'
+				move_set.append(self.set)
+			elif self.sonar_RF.distance > y and self.sonar_LF.distance > y :  # 0 AND 0
+				self.set = 'F'
+				move_set.append(self.set)
+
+		elif direction == 'B':
+			self.tmp_dir = 'B'
+			if self.sonar_RB.distance <=y and self.sonar_LB.distance <=y  : # 1 AND 1
+				self.set = 'R'
+				move_set.append(self.set)
+			elif self.sonar_RB.distance <= y and self.sonar_LB.distance > y : #1 AND 0
+				self.set = 'L'
+				move_set.append(self.set)
+			elif self.sonar_RB.distance > y and self.sonar_LB.distance<=y :  # 0 AND 1
+				self.set = 'R'
+				move_set.append(self.set)
+			elif self.sonar_RB.distance > y and self.sonar_LB.distance > y :  # 0 AND 0
+				self.set = 'B'
+				move_set.append(self.set)
+
+
+		elif direction == 'L' :
+
+			if self.tmp_dir == 'F' :
+
+				if self.sonar_RF.distance <=y and self.sonar_LF.distance <=y  : # 1 AND 1
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance <= y and self.sonar_LF.distance > y : #1 AND 0
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance > y and self.sonar_LF.distance<=y :  # 0 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance > y and self.sonar_LF.distance > y :  # 0 AND 0
+					self.set = 'F'
+					move_set.append(self.set)
+
+			elif self.tmp_dir == 'B' :
+
+				if self.sonar_RB.distance <=y and self.sonar_LB.distance <=y  : # 1 AND 1
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance <= y and self.sonar_LB.distance > y : #1 AND 0
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance > y and self.sonar_LB.distance<=y :  # 0 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance > y and self.sonar_LB.distance > y :  # 0 AND 0
+					self.set = 'B'
+					move_set.append(self.set)
+			
+
+		elif direction == 'R':
+
+			if self.tmp_dir == 'F' :
+
+				if self.sonar_RF.distance <=y and self.sonar_LF.distance <=y  : # 1 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance <= y and self.sonar_LF.distance > y : #1 AND 0
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance > y and self.sonar_LF.distance<=y :  # 0 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RF.distance > y and self.sonar_LF.distance > y :  # 0 AND 0
+					self.set = 'F'
+					move_set.append(self.set)
+
+			elif self.tmp_dir == 'B' :
+
+				if self.sonar_RB.distance <=y and self.sonar_LB.distance <=y  : # 1 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance <= y and self.sonar_LB.distance > y : #1 AND 0
+					self.set = 'L'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance > y and self.sonar_LB.distance<=y :  # 0 AND 1
+					self.set = 'R'
+					move_set.append(self.set)
+				elif self.sonar_RB.distance > y and self.sonar_LB.distance > y :  # 0 AND 0
+					self.set = 'B'
+					move_set.append(self.set)
+
+		return self.set
+
 
 
 class Sonar_d:
@@ -59,9 +179,37 @@ class Imu_d :
 		self.orientation = data.orientation
 		self.angular_velocity = data.angular_velocity
 		self.linear_acceleration = data.linear_acceleration
+		self.update_tf_imu()
+
+	def update_tf_imu(self):
+		imu_br = tf2_ros.TransformBroadcaster()
+		imu_t = geometry_msgs.msg.TransformStamped()
+
+		imu_t.header.stamp = rospy.Time.now()
+		imu_t.header.frame_id = "base_link"
+		imu_t.child_frame_id = "Imu"
+		imu_t.transform.translation.x= 0.05
+		imu_t.transform.translation.y= 0
+		imu_t.transform.translation.z= 0
+		imu_t.transform.rotation= self.orientation
+		# imu_t.transform.rotation.x = self.orientation[0]
+		# imu_t.transform.rotation.y = self.orientation[1]
+		# imu_t.transform.rotation.z = self.orientation[2]
+		# imu_t.transform.rotation.w = self.orientation[3]
+		imu_br.sendTransform(imu_t)
+
+
+
 
 	def __repr__(self):
 		return f' orientation : {str(self.orientation)} , Angular_velocity : {str(self.angular_velocity)} , Linear_accelaration : {str(self.linear_acceleration)}'
+
+# class Laser_d :
+# 	def __init__(self):
+# 		rospy.subscriber("/scan",LaserScan,self.Laser_callback)
+
+# 	def Laser_callback(self):
+# 		pass
 
 
 
@@ -79,14 +227,15 @@ class Imu_d :
 def main():
 	# rospy.Subscriber("sonar_data", Sonar, check_sonar)
 	init_state()
-	
-	rate_s=rospy.Rate(10)
+	keySet = None 
+	x=0
+	rate_s=rospy.Rate(20)
 	while not rospy.is_shutdown():
-		#hex1.rotate_clockwise(3,0.2,True)
-		#hex1.rotate_clockwise(3,0.2,False)
-		# if env.sonar_RF.distance < 30 :
-		# 	print('gotsassasaassssssssssssssssss')
-		print(env.imu)
+		keySet =  env.check_enviroment(move_set[x])
+		action_set(keySet)
+		
+		x=x+1
+		print(env.imu.orientation)
 		rate_s.sleep()
 
 
@@ -94,26 +243,33 @@ def main():
 # key set depends of the enviroment signals (move fwd /bwd rotate clkwise/counterclkwise , init stature //pose )
 
 
-# def action_set(key,stepsmtime,fwd):
+def action_set(key):
 
-# 	if key== 0 :
-# 		hex1.walking(steps,time,fwd)
-# 	elif key == 1:
-# 		hex1.walking(steps,time,fwd)
-# 	else :
-# 		hex1.initialize()
+	t = 0.15
+	if key == 'F':
+		step(t,forward)
+	elif key == 'B':
+		step(t,backwards)
+	elif key == 'R':
+		rotate(t,right)
+	elif key == 'L':
+		rotate(t,left)
+
+		
 
 
-# def check_sonar(data) :
-# 	for i,sonar in enumerate(env.sonars):
-# 		sonar.header=data.header
-# 		sonar.distance = data.distance[i]
-# 	print(env.sonar_RF)
+
+def step(t,fwd):
+	hex1.walking(1,t,fwd)
+
+def rotate(t,clockwise):
+	hex1.rotate_clockwise(1,t,clockwise)
+
 
 def init_state():
-	print('Initializing ...')
+	print(' Initializing ...')
 	sleep(2)
-	#hex1.initialize()
+	hex1.initialize()
 
 
 if __name__ == '__main__':
@@ -122,3 +278,5 @@ if __name__ == '__main__':
 	hex1 = Hexapod()
 	env = Enviroment()
 	main()
+	print(move_set)
+

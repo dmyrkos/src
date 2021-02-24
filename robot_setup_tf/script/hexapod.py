@@ -83,7 +83,7 @@ class Hexapod:
 
 	def walking(self,steps,t,fwd):
 		for step in range(steps) :
-			print(jp)
+			#print(jp)
 			self.tripod_gait(self.tripod1,0,fwd)
 			sleep(t)
 			if steps > 0:
@@ -200,16 +200,6 @@ class Hexapod:
 				t.knee.off()
 
 
-	def smooth(self,t=0,pi=45):
-		print("-->>",pi)
-		while True :
-			for leg in self.legs:
-				leg.knee.move(25)
-			sleep(2)
-			for leg in self.legs:
-				leg.knee.move(-25)
-			sleep(2)
-
 	def wave_gait(self,steps,t,fwd=True):
 		for step in range(steps) :
 			for leg in self.legs2 :
@@ -291,11 +281,11 @@ class Joint:
 			#print("off joint :" ,self.name, self.angle)
 			kitL.servo[self.channel].angle = init_values[self.name][1]
 			self.angle = kitL.servo[self.channel].angle
-			print(self.name, self.angle)
+			#print(self.name, self.angle)
 		else:
 		 	kitR.servo[self.channel].angle = init_values[self.name][1]
 		 	self.angle = kitR.servo[self.channel].angle
-		 	print(self.name, self.angle)
+		 	#print(self.name, self.angle)
 
 
 	def __repr__(self):

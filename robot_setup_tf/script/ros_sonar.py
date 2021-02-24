@@ -13,8 +13,8 @@ GPIO.setmode(GPIO.BCM)
 
 # foramt sonar  id  : TRiger , Echo
 sonars_dic = {
-		's0' : (17,27),'s1' : (5,6),
-		 's2' : (23,24),'s3' : (21,20) 
+		's0' : (17,25),'s1' : (27,8),
+		 's2' : (22,7),'s3' : (23,1) 
 		}
 				
 

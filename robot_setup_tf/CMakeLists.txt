@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    Sonar.msg
    Servo_tf.msg
+   servo.msg
  )
 
 ## Generate services in the 'srv' folder

@@ -116,7 +116,7 @@ if __name__ == '__main__':
 	#set_rate = rospy.Service('sense_gimbal/bno055/set_stream_rate', SetStreamRate, handleSetStreamRate)
 	
 	# Raspberry Pi configuration with serial UART and RST connected to GPIO 18:
-	bno = BNO055.BNO055(serial_port='/dev/ttyS0', rst=18)
+	bno = BNO055.BNO055(serial_port='/dev/ttyAMA1', rst=18)
 
 	# Try to read calibration file initialy
 	calib_file_name = rospy.get_param('bno055_calibration_file', DEFAULT_CAL_FILE)

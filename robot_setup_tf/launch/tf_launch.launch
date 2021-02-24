@@ -3,6 +3,16 @@
 
 
 
+<node pkg="tf2_ros" type="static_transform_publisher" name="map_odom_link" 
+args="0 0 0 0 0 0 map odom" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="odom_base_link" 
+args="0 0 0 0 0 0 odom base_link" />
+
+<node pkg="tf2_ros" type="static_transform_publisher" name="base_imu" 
+args="0.05 0 0 0 0 0 base_link Imu" />
+
+
 <!--Static link for Robot  -->
 <!-- Right front Leg -->
 <node pkg="tf2_ros" type="static_transform_publisher" name="Static_brd_RF1" 
@@ -87,7 +97,7 @@ args="0.14 0 0 0 0 0  F_LB J_LB" />
 <!-- Dynamic links  -->
 
 
-<!-- <node pkg="robot_setup_tf" type="tf_broadcaster.py" name="tf_broadcaster" />
- -->
+<node pkg="robot_setup_tf" type="tf_broadcaster.py" name="tf_broadcaster" output = "screen"/>
+
 
 </launch>
