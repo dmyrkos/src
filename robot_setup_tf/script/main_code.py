@@ -11,6 +11,7 @@ import std_msgs
 from std_msgs.msg import Float64
 from time import sleep
 from sensor_msgs.msg import LaserScan
+from std_msgs.msg import String
 import tf_conversions
 import tf2_ros
 
@@ -261,15 +262,27 @@ def action_set(key):
 
 def step(t,fwd):
 	hex1.walking(1,t,fwd)
+	movemnt_pub('fwd')
 
 def rotate(t,clockwise):
 	hex1.rotate_clockwise(1,t,clockwise)
-
+	if clockwise == True :
+		movemnt_pub('Right')
+	else :
+		movemnt_pub('Left')
 
 def init_state():
 	print(' Initializing ...')
 	sleep(2)
 	hex1.initialize()
+	sleep(1)
+
+
+def movemnt_pub(move):
+	hex_movement = rospy.Publisher("hex_movement",String,queue_size=3)
+	s = String()
+	s = str(move)
+	hex_movement.publish(s)
 
 
 if __name__ == '__main__':
