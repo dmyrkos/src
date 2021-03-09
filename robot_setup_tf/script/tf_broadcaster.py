@@ -63,7 +63,6 @@ def servo_rot_callback(p_inc,y_inc,triad):
             t.transform.translation.z= dynamic_links[i][j][3]
             if dynamic_links[i][j][0] in triad and hip_key:
                 s= dynamic_links[i][j][0]
-                print(s)
                 if s[0] == 'R' :
                     
                     q = tf_conversions.transformations.quaternion_from_euler(
@@ -97,35 +96,25 @@ def servo_rot_callback(p_inc,y_inc,triad):
 
 def update_dic(move):
     move_set = move.data
-    print(move_set)
     if move_set == 'fwd':
         for i in range(8):
             if i == 0:
-                print('sup')
                 servo_rot_callback(-30,0,tr1)
             elif i == 1:
-                print('sup2')
                 servo_rot_callback(-30,30,tr1)
             elif i == 2:
-                print('sup3')
                 servo_rot_callback(0,30,tr1)
             elif i == 3:
-                print('sup4')
                 servo_rot_callback(0,0,tr1)
             elif i == 4:
-                print('sup5')
                 servo_rot_callback(-30,0,tr2)
             elif i == 5:
-                print('sup6')
                 servo_rot_callback(-30,30,tr2)
             elif i == 6:
-                print('sup7')
                 servo_rot_callback(0,30,tr2)
             elif i == 7:
-                print('sup8')
                 servo_rot_callback(0,0,tr2)
-            print(i)
-            time.sleep(0.5)
+            time.sleep(0.4)
     elif move_set=='Left': 
         for i in range(8):
             if i == 0:
@@ -144,7 +133,7 @@ def update_dic(move):
                 servo_rot_callback(0,25,tr2)
             elif i == 7:
                 servo_rot_callback(0,0,tr2)
-            time.sleep(0.5)
+            time.sleep(0.4)
 
     else :
         for i in range(8):
@@ -164,7 +153,7 @@ def update_dic(move):
                 servo_rot_callback(0,25,tr1)
             elif i == 7:
                 servo_rot_callback(0,0,tr1)
-            time.sleep(0.5)
+            time.sleep(0.4)
 
 
 
@@ -188,59 +177,3 @@ if __name__ == '__main__':
 
 
 
-
-
-
-#########################################################################
-    # s = servo_data.name
-    # global pre,tm,pp
-    # global dynamic_links
-    # angle = servo_data.angle
-
-
-    # s1 = s[:-1]
-    # if s[-1] =='H' :
-    #     s2= 'A_' + s[:-1]
-    # elif s[-1] =='K':
-    #     s2= 'C_' + s[:-1]  
-    # else :
-    #     s2= 'E_' + s[:-1]
-
-
-
-
-    # x_axis = dynamic_links[s1][s2][1]
-    # y_axis = dynamic_links[s1][s2][2]
-    # z_axis = dynamic_links[s1][s2][3]
-    # r_axis = dynamic_links[s1][s2][4]
-    # p_axis = dynamic_links[s1][s2][5]
-    # yaw_axis = dynamic_links[s1][s2][6]
-
-    # if s[0] == 'R' :
-    #     tm = tm *(-1)
-    # else :
-    #     pp = pp  * (1)
-    
-   
-    # if s[-1] == 'H' and s[0] == 'L':
-    #     yaw_axis = yaw_axis - (tm)*angle
-    # elif s[-1] == 'H' and s[0] == 'R':
-    #     yaw_axis = yaw_axis + (pp)*angle
-    # elif s[-1] == 'K' :
-    #     p_axis = p_axis + (tm)*angle
-    # print('-----------------------------',pre, tm,pp)
-    # global counter
-    # key = {s2 : [s,x_axis,y_axis,z_axis,r_axis,p_axis,yaw_axis]}
-    # dynamic_links[s1].update(key)
-    # print(' key dict == ',key)
-
-
-    # if counter > 6 :
-    #     pre = pre *(-1)
-    #     # pre = -1
-    #     # dynamic_links = init_pos
-    #     counter = 0
-    #     # print("----------------------------------------------------------")
-    # print(counter)
-    # servo_rot_callback()
-    # counter = counter + 1

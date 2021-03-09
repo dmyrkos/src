@@ -188,15 +188,11 @@ class Imu_d :
 
 		imu_t.header.stamp = rospy.Time.now()
 		imu_t.header.frame_id = "base_link"
-		imu_t.child_frame_id = "Imu"
+		imu_t.child_frame_id = "bno055/imu"
 		imu_t.transform.translation.x= 0.05
 		imu_t.transform.translation.y= 0
 		imu_t.transform.translation.z= 0
 		imu_t.transform.rotation= self.orientation
-		# imu_t.transform.rotation.x = self.orientation[0]
-		# imu_t.transform.rotation.y = self.orientation[1]
-		# imu_t.transform.rotation.z = self.orientation[2]
-		# imu_t.transform.rotation.w = self.orientation[3]
 		imu_br.sendTransform(imu_t)
 
 
@@ -275,14 +271,24 @@ def init_state():
 	print(' Initializing ...')
 	sleep(2)
 	hex1.initialize()
-	sleep(1)
+	sleep(2)
 
 
 def movemnt_pub(move):
 	hex_movement = rospy.Publisher("hex_movement",String,queue_size=3)
+	# cmd_vel_pub = rospy.Publisher("cmd_vel",Twist,queue_size=10)
+	# cmd_vel_data.linear,cmd_vel_data.angular  = Twist()
+	# if move == 'fwd' :
+	# 	cmd_vel_data.linear = 0.08
+	# 	cmd_vel_data.angular= 0
+	# elif move == 'bwd' :
+	# 	cmd_vel_data.linear = -0.08
+	# 	cmd_vel_data.angular= 0
+	# cmd_vel_pub.publish(cmd_vel_data)
 	s = String()
 	s = str(move)
 	hex_movement.publish(s)
+
 
 
 if __name__ == '__main__':

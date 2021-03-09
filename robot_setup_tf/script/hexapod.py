@@ -8,10 +8,10 @@ from adafruit_servokit import ServoKit
 
 jp = {
     'LFH': (0,90), 'LFK': (1,60), 'LFA': (2,15),
-    'LMH': (3,100), 'LMK': (4,60), 'LMA': (5,15),
+    'LMH': (3,90), 'LMK': (4,60), 'LMA': (5,15),
     'LBH': (6,90), 'LBK': (7,60), 'LBA': (8,15),
     'RFH': (0,90), 'RFK': (1,120), 'RFA': (2,165),    
-    'RMH': (3,100), 'RMK': (4,120), 'RMA': (5,175),
+    'RMH': (3,90), 'RMK': (4,120), 'RMA': (5,175),
     'RBH': (6,90), 'RBK': (7,120), 'RBA': (8,165)
     }
 
@@ -168,32 +168,32 @@ class Hexapod:
 				if tr1 == self.tripod2 :
 					for t in tr1:
 						if t.hip.name == 'LMH':
-							t.hip.move(25)
+							t.hip.move(30)
 						else :
-							t.hip.move(-25)
+							t.hip.move(-30)
 				else:
 					for t in tr1:
 						if t.hip.name == 'RMH':
-							t.hip.move(-25)
+							t.hip.move(-30)
 						else :
-							t.hip.move(25)
+							t.hip.move(30)
 			else : ## rotation left 
 				if tr1 == self.tripod2 :
 					for t in tr1:
 						if t.hip.name == 'LMH':
-							t.hip.move(-25)
+							t.hip.move(-30)
 						else :
-							t.hip.move(+25)
+							t.hip.move(+30)
 				else:
 					for t in tr1:
 						if t.hip.name == 'RMH':
-							t.hip.move(25)
+							t.hip.move(30)
 						else :
-							t.hip.move(-25)
+							t.hip.move(-30)
 								
 		elif seq == 2 :
 			for t in tr1:
-				t.knee.move(-25)
+				t.knee.move(-30)
 		elif seq == 3 :
 			for t in tr1:
 				t.hip.off()
@@ -299,13 +299,16 @@ if __name__ == '__main__':
 	hex1 = Hexapod()
 	hex1.initialize()
 	#print(hex1.tripod1[1].knee)\
-	sleep(1)
+	sleep(4)
 	#hex1.standUp()
 
-	#hex1.left_middle.knee.set_angle(50)
+	# hex1.left_middle.hip.set_angle(50)
+	# sleep(0.2)
+	# hex1.left_middle.hip.set_angle(90)
+	
 	#hex1.right_front.ankle.set_angle(180)
-	hex1.rotate_clockwise(3,0.2,True)
-	hex1.walking(5,0.1,False)
+	#hex1.rotate_clockwise(13,0.2,False)
+	#hex1.walking(10,0.15,True)
 
 	#hex1.wave_gait(10,0.3,False)
 	
