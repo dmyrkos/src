@@ -4,10 +4,10 @@
 
 
 <node pkg="tf2_ros" type="static_transform_publisher" name="map_odom_link" 
-args="0 0 0 0 0 0 map odom" />
+args="0 0 -0.1 0 0 0 map odom" />
 
-<node pkg="tf2_ros" type="static_transform_publisher" name="odom_base_link" 
-args="0 0 0 0 0 0 odom base_link" />
+<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="odom_base_link" 
+args="0 0 0 0 0 0 odom base_link" /> -->
 
 <node pkg="tf2_ros" type="static_transform_publisher" name="base_imu" 
 args="0.05 0 0 0 0 0 base_link bno055/imu" />

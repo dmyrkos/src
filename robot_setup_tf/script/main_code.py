@@ -23,6 +23,9 @@ import tf2_ros
 # LEFT = L
 # RIGHT = R
 #i.e.  ['F','F','L',F]
+# forward /bacward = +/- 0.075
+# left ot right = + /- 0.25 (aprox 30 degrees)
+
 move_set =['F']
 forward = False
 backwards = True 
@@ -37,6 +40,7 @@ class Enviroment:
 		self.sonar_LB = Sonar_d('left_back',None,3,0)
 		self.imu= Imu_d()
 		# self.Laser = Laser_d()
+		self.planner = Planner_d()
 		self.sonars = [self.sonar_RF,self.sonar_LF,self.sonar_RB,self.sonar_LB]
 		self.set = None
 		self.tmp_dir = None
@@ -196,10 +200,29 @@ class Imu_d :
 		imu_br.sendTransform(imu_t)
 
 
+	def __repr__(self):
+		return f' orientation : {str(self.orientation)} , Angular_velocity : {str(self.angular_velocity)} , Linear_accelaration : {str(self.linear_acceleration)}'
+
+class Planner_d:
+	def __init__(self):
+		self.l = None
+		self.a = None
+		self.linear_x  ,self.linear_y , self.linear_z= None , None , None
+		self.angular_x ,self.angular_y  ,self.angular_z= None , None , None
+		self.plan=False
+		rospy.Subscriber("cmd_vel",Twist,self.Planner_callback)
+
+	def Planner_callback(self,data):
+		self.l = data.linear.x
+		self.a =data.angular.z
+		self.linear_x , self.linear_y  ,self.linear_z = data.linear.x ,data.linear.y ,data.linear.z
+		self.angular_x , self.angular_y , self.angular_z = data.angular.x ,data.angular.y ,data.angular.z
+		self.plan = True
 
 
 	def __repr__(self):
-		return f' orientation : {str(self.orientation)} , Angular_velocity : {str(self.angular_velocity)} , Linear_accelaration : {str(self.linear_acceleration)}'
+		return f' twist msg : linear_acceleration :{str(self.l)} , angular_velocity{str(self.a)}  '
+
 
 # class Laser_d :
 # 	def __init__(self):
@@ -207,7 +230,7 @@ class Imu_d :
 
 # 	def Laser_callback(self):
 # 		pass
-
+ 
 
 
 
@@ -222,22 +245,47 @@ class Imu_d :
  
 
 def main():
-	# rospy.Subscriber("sonar_data", Sonar, check_sonar)
 	init_state()
 	keySet = None 
 	x=0
 	rate_s=rospy.Rate(20)
 	while not rospy.is_shutdown():
-		keySet =  env.check_enviroment(move_set[x])
-		action_set(keySet)
-		
-		x=x+1
-		print(env.imu.orientation)
+		if env.planner.linear_x != None or env.planner.angular_z !=None:
+			waypoint_action()
+			print('hey')
+		# keySet =  env.check_enviroment(move_set[x])
+		# action_set(keySet)
+		# x=x+1
+		print(env.planner)
+		# print(env.imu.orientation)
 		rate_s.sleep()
 
 
 
 # key set depends of the enviroment signals (move fwd /bwd rotate clkwise/counterclkwise , init stature //pose )
+def waypoint_action():
+	t=0.15
+	seq = True
+	x = env.planner.linear_x
+	z = env.planner.angular_z
+	step_x = 0.012 # 1 fwd step
+	rot_z = 0.25 # 1 rotation right
+	steps = abs(x)/step_x
+	rotation = abs(z)/ rot_z
+	print('--------- step and rotaion ------ ',steps,rotation)
+	for i in range(int(steps)):
+		if x>0 :
+			step(t,forward)
+		else :
+			step(t,backwards)
+	sleep(t)
+	for i in range(int(rotation)):
+		if z > 0 :
+			rotate(t,left)
+		else :
+			rotate(t,right)
+
+
 
 
 def action_set(key):
@@ -251,13 +299,12 @@ def action_set(key):
 		rotate(t,right)
 	elif key == 'L':
 		rotate(t,left)
-
 		
-
 
 
 def step(t,fwd):
 	hex1.walking(1,t,fwd)
+
 	movemnt_pub('fwd')
 
 def rotate(t,clockwise):

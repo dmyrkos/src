@@ -1,0 +1,12 @@
+global_frame: map
+rolling_window: true
+track_unknown_space: true
+
+plugins:
+  - {name: obstacles_laser,           type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation,                 type: "costmap_2d::InflationLayer"}
+
+
+obstacles_laser:
+  observation_sources: scan
+  scan: {data_type: LaserScan, sensor_frame: laser, clearing: true, marking: true, topic: /scan}

@@ -19,15 +19,28 @@
 </include>
 
 
-<node pkg="move_base" type="move_base"  name="move_base" output="screen">
+
+<!-- gerona configure 
+	<include file="$(find navigation_launch)/launch/navigation.launch"/> 
+-->
+
+<!-- Move Base node -->
+
+<arg name="no_static_map" value="true"/>
+<arg name="base_global_planner" default="navfn/NavfnROS"/>
+<arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
+
+<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen"> 
 	<rosparam file="$(find robot_setup_tf)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
 	<rosparam file="$(find robot_setup_tf)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 	<rosparam file="$(find robot_setup_tf)/config/local_costmap_params.yaml" command="load" />
 	<rosparam file="$(find robot_setup_tf)/config/global_costmap_params.yaml" command="load" /> 
 	<rosparam file="$(find robot_setup_tf)/config/move_base_params.yaml" command="load" />
 	<rosparam file="$(find robot_setup_tf)/config/global_planner_params.yaml" command="load" />
-	<rosparam file="$(find robot_setup_tf)/config/dwa_local_planner_params.yaml" command="load" />
+	<rosparam file="$(find robot_setup_tf)/config/dwa_local_planner_params.yaml" command="load" /> 
+	
 </node>
+
 
 
 <node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub" />
