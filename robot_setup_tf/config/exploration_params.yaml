@@ -1,0 +1,18 @@
+robot_base_frame: 
+
+costmap_topic:
+
+costmap_updates_topic:
+
+planner_frequency:
+
+progress_timeout:
+
+potential_scale:
+
+orientation_scale :
+
+gain_scale:
+transform_tolerance:
+
+min_frontier_size:

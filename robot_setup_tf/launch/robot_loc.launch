@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 
 <launch>
+	
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
     <rosparam command="load" file="$(find robot_setup_tf)/launch/ekf_template.yaml" />
-
   </node>
+
 </launch>

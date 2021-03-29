@@ -232,16 +232,6 @@ class Planner_d:
 # 		pass
  
 
-
-
-###############################################################
-###########initialize -> check nviroment -> action  ->? repeat ###
-	####### check enviroment
-			# sonar subscriber 
-			# imu sub 
-			# laser sub
-
-##################################################################
  
 
 def main():
@@ -273,18 +263,18 @@ def waypoint_action():
 	steps = abs(x)/step_x
 	rotation = abs(z)/ rot_z
 	print('--------- step and rotaion ------ ',steps,rotation)
-	for i in range(int(steps)):
-		if x>0 :
-			step(t,forward)
-		else :
-			step(t,backwards)
-	sleep(t)
 	for i in range(int(rotation)):
 		if z > 0 :
 			rotate(t,left)
 		else :
 			rotate(t,right)
-
+	sleep(t)
+	for i in range(int(steps)):
+		if x>0 :
+			step(t,forward)
+		else :
+			step(t,backwards)
+	
 
 
 

@@ -18,20 +18,18 @@ DWAPlannerROS:
 
 # Goal Tolerance Parameters
   yaw_goal_tolerance: 0.1  # 0.1 rad = 5.7 degree
-  xy_goal_tolerance: 0.12
+  xy_goal_tolerance: 0.15
   latch_xy_goal_tolerance: false
-
-
 
 # Forward Simulation Parameters
   sim_time: 2.0    # 1.7
-  sim_granularity: 0.025
-  vx_samples: 6    # default 3
+  sim_granularity: 0.06
+  angular_sim_granularity: 0.25
+  vx_samples: 3    # default 3
   vy_samples: 1    # diff drive robot, there is only one sample
   vth_samples: 20  # 20
   controller_frequency: 5.0
  
-
 # Trajectory Scoring Parameters
 
   path_distance_bias: 90.0      # 32.0
@@ -43,11 +41,14 @@ DWAPlannerROS:
   max_scaling_factor: 0.2       # 0.2
   publish_cost_grid: false
 
- 
 
 # Oscillation Prevention Parameters
   oscillation_reset_dist: 0.05  # default 0.05
 
-
 # Global Plan Parameters
   prune_plan: false
+
+  # Debugging
+  publish_traj_pc : true
+  publish_cost_grid_pc: true
+  global_frame_id: map

@@ -1,4 +1,6 @@
+<?xml version="1.0"?>
 <launch>
+
 
   <arg name="use_map_topic" default="true"/>
   <arg name="scan_topic" default="/scan" />
