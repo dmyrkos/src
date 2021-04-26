@@ -177,7 +177,7 @@ class Imu_d :
 		self.orientation = None
 		self.angular_velocity = None
 		self.linear_acceleration = None
-		rospy.Subscriber("bno055/imu", Imu, self.Imu_callback)
+		rospy.Subscriber("imu", Imu, self.Imu_callback)
 
 	def Imu_callback(self,data):
 		self.header = data.header
@@ -192,12 +192,12 @@ class Imu_d :
 
 		imu_t.header.stamp = rospy.Time.now()
 		imu_t.header.frame_id = "base_link"
-		imu_t.child_frame_id = "bno055/imu"
+		imu_t.child_frame_id = "imu"
 		imu_t.transform.translation.x= 0.05
 		imu_t.transform.translation.y= 0
 		imu_t.transform.translation.z= 0
 		imu_t.transform.rotation= self.orientation
-		imu_br.sendTransform(imu_t)
+		#imu_br.sendTransform(imu_t)
 
 
 	def __repr__(self):
@@ -236,6 +236,7 @@ class Planner_d:
 
 def main():
 	init_state()
+	#hex1.rotate_clockwise(14,0.2,True)
 	keySet = None 
 	x=0
 	rate_s=rospy.Rate(20)

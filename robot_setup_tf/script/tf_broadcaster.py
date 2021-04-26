@@ -114,7 +114,7 @@ def update_dic(move):
                 servo_rot_callback(0,30,tr2)
             elif i == 7:
                 servo_rot_callback(0,0,tr2)
-            time.sleep(0.4)
+            time.sleep(0.5)
     elif move_set=='Left': 
         for i in range(8):
             if i == 0:
@@ -133,7 +133,7 @@ def update_dic(move):
                 servo_rot_callback(0,25,tr2)
             elif i == 7:
                 servo_rot_callback(0,0,tr2)
-            time.sleep(0.4)
+            time.sleep(0.5)
 
     else :
         for i in range(8):
@@ -153,7 +153,7 @@ def update_dic(move):
                 servo_rot_callback(0,25,tr1)
             elif i == 7:
                 servo_rot_callback(0,0,tr1)
-            time.sleep(0.4)
+            time.sleep(0.5)
 
 
 

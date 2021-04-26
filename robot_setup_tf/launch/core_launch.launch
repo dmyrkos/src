@@ -5,7 +5,17 @@
 
 <node pkg="robot_setup_tf" type="ros_sonar.py" name="sonar_data"/>
 
+<node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub" />
+
+<!-- if i want to use rplidar A1. -->
+
 <include file = "$(find rplidar_ros)/launch/rplidar.launch"/>
+ 
+
+ <!-- if i want to use hokuyo  -->
+
+<!-- <include file = "$(find urg_node)/launch/urg_lidar.launch"/> -->
+
 
 <arg name="geotiff_map_file_path" default="$(find hector_geotiff)/maps"/>
 
@@ -17,17 +27,29 @@
 	<arg name="trajectory_source_frame_name" value="scanmatcher_frame"/>
 	<arg name="map_file_path" value="$(arg geotiff_map_file_path)"/>
 </include>
-<!-- 
 
-<node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+
+
+
+
+<!-- robot - localization ekf filters -->
+<!-- <node pkg="hector_pose_estimation" type="pose_estimation" name="hector_pose_estimation" /> -->
+<!-- <param name="raw_imu" value="imu"/>
+<param name="poseupdate" value="poseupdate"/> -->
+
+
+<!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_node" clear_params="true">	
+	<param name="imu" value="imu"/>
+	<param name="pose0" value="poseupdate"/>
+	<remap from="odometry/filtered" to="pose/filtered"/>
 	<rosparam command="load" file="$(find robot_setup_tf)/launch/ekf_template.yaml" />
 </node>
-
  -->
+
 
 <!-- Move Base node -->
 
-
+ 
 <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen"> 
 	<rosparam file="$(find robot_setup_tf)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
 	<rosparam file="$(find robot_setup_tf)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -46,8 +68,11 @@
 	<remap from="/fused_imu" to="/imu_in" />
 	<remap from="/pose" to="/slam_out_pose" />
 </node> -->
+
+
 <!-- exploration node -->
-<!-- <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+<!-- 
+<node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
   <param name="robot_base_frame" value="base_link"/>
   <param name="costmap_topic" value="map"/>
   <param name="costmap_updates_topic" value="map_updates"/>
@@ -61,7 +86,6 @@
   <param name="min_frontier_size" value="0.75"/>
 </node>
  -->
-<node pkg="robot_setup_tf" type="bno055_node.py" name="imu_pub" />
 
 <node pkg="robot_setup_tf" type ="main_code.py" name="core_HEX" output= "screen"/> 
 

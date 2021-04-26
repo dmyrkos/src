@@ -106,9 +106,10 @@ def quaternion_multiply(quat1, quat0):
 
 if __name__ == '__main__':
 
+
 	rospy.init_node('bno055_node')
 
-	imu_pub   = rospy.Publisher("bno055/imu", Imu, queue_size=10)
+	imu_pub   = rospy.Publisher("imu", Imu, queue_size=10)
 	heading_pub = rospy.Publisher("bno055/compass_hdg", Float64, queue_size=10)
 	accel_pub 	= rospy.Publisher("bno055/accel_stamped", AccelStamped, queue_size=10)
 
@@ -116,7 +117,7 @@ if __name__ == '__main__':
 	#set_rate = rospy.Service('sense_gimbal/bno055/set_stream_rate', SetStreamRate, handleSetStreamRate)
 	
 	# Raspberry Pi configuration with serial UART and RST connected to GPIO 18:
-	bno = BNO055.BNO055(serial_port='/dev/ttyAMA1', rst=18)
+	bno = BNO055.BNO055(serial_port='/dev/ttyAMA1',rst=18)
 
 	# Try to read calibration file initialy
 	calib_file_name = rospy.get_param('bno055_calibration_file', DEFAULT_CAL_FILE)
@@ -166,7 +167,7 @@ if __name__ == '__main__':
 
 	imu_msg.header = std_msgs.msg.Header()
 	imu_msg.header.stamp = rospy.Time.now()
-	imu_msg.header.frame_id = 'bno055'
+	imu_msg.header.frame_id = 'imu'
 	
 	imu_msg.orientation = Quaternion()
 	imu_msg.angular_velocity = Vector3()
